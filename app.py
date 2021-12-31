@@ -42,8 +42,15 @@ with st.expander('客服-用户下单金额'):
     if st.button(label='点此展示结果'):
         df_user_gmv = sql_to_data(sql_user_gmv)  #读取数据库 生成df
         st.write(df_user_gmv)  #展示结果
-        csv = convert_df(df_user_gmv)  #df转换为csv
-        st.download_button(label="点此下载,用excel打开或另存为xlsx后进行操作", data=csv,file_name=str(date_end)+'用户.csv')
+#         csv = convert_df(df_user_gmv)  #df转换为csv
+#         st.download_button(label="点此下载,用excel打开或另存为xlsx后进行操作", data=csv,file_name=str(date_end)+'用户.csv')
+        from io import StringIO
+        from pandas.io.clipboard import clipboard_set
+        if st.button(label='点此复制',key=2):
+            buf = StringIO()  #创建缓存对象
+            df_user_gmv.to_csv(buf,encoding='utf-8')  #将df通过to_csv保存到缓存对象
+            text=buf.getvalue()
+            clipboard_set(text)  #复制到剪贴板
 
 # 指定店铺在上周的用户ID和下单金额
 with st.expander('客服-用户下单店铺'):
