@@ -4,7 +4,6 @@ aiosignal==1.2.0
 altair==4.1.0
 aniso8601==9.0.1
 appnope==0.1.2
-appscript==1.1.2
 argon2-cffi==21.1.0
 astor==0.8.1
 async-timeout==4.0.1
