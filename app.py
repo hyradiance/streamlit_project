@@ -2,18 +2,18 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 # from mypackage.on_line_mysql import sql_to_data
-
+print('rwrrwrwrwrrwrwrwrgtrdgrg')
 # #df转换为csv
 # def convert_df(df):
 #     return df.to_csv().encode('gbk')
 
-with st.expander('客服'):
-    # 指定用户在指定时间内的下单金额
-with st.expander('客服-用户下单金额'):
-    user=st.text_input(label='输入用户ID',placeholder='少量用户ID直接输入用空格隔开,多个用户ID从excel复制一列粘贴到此')
-    str_user=user.replace(' ',',')  #把输入的ID用逗号隔开
-    date_start=st.date_input(label='输入开始时间',help='00:00:00开始')
-    date_end=st.date_input(label='输入结束时间',help='23:59:59结束')
+# with st.expander('客服'):
+#     # 指定用户在指定时间内的下单金额
+# with st.expander('客服-用户下单金额'):
+#     user=st.text_input(label='输入用户ID',placeholder='少量用户ID直接输入用空格隔开,多个用户ID从excel复制一列粘贴到此')
+#     str_user=user.replace(' ',',')  #把输入的ID用逗号隔开
+#     date_start=st.date_input(label='输入开始时间',help='00:00:00开始')
+#     date_end=st.date_input(label='输入结束时间',help='23:59:59结束')
 #     sql_user_gmv="""select o.user_id 用户ID,sum(o.order_money) 下单金额
 #                 from mall_order o
 #                 where o.order_status in (2,5,9) and o.depot_id=1 and  #完成+北京仓
