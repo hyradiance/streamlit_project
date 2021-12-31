@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 # from mypackage.on_line_mysql import sql_to_data
-print('rwrrwrwrwrrwrwrwrgtrdgrg')
+st.write('rwrrwrwrwrrwrwrwrgtrdgrg')
 # #df转换为csv
 # def convert_df(df):
 #     return df.to_csv().encode('gbk')
