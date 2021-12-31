@@ -1,13 +1,33 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from mypackage.on_line_mysql import sql_to_data
+import pymysql
+from sshtunnel import SSHTunnelForwarder
+def sql_to_data(str_sql):
+    with SSHTunnelForwarder(
+        # 指定ssh登录的跳转机的address
+        ssh_address_or_host = ('8.140.143.128',22),
+        # 设置密钥
+        # ssh_pkey = private_key,
+        # 如果是通过密码访问，可以把下面注释打开，将密钥注释即可。
+        ssh_password = "AScbM6PUL8mrNdGxS6DpcBpu",
+        # 设置用户
+        ssh_username = 'wisdom',
+        # 设置数据库服务地址及端口
+        remote_bind_address= ('pc-2ze8ov6i9ri93ujpc.rwlb.rds.aliyuncs.com',3306)) as server:
+        conn = pymysql.connect(database='dongpin_db',
+                                user='dp_read_user',
+                                password='wqzozQKuaePvXU68',
+                                host='127.0.0.1',  # 因为上面没有设置 local_bind_address,所以这里必须是127.0.0.1,如果设置了，取设置的值就行了。
+                                port=server.local_bind_port) # 这里端口也一样，上面的server可以设置，没设置取这个就行了
+        df = pd.read_sql(str_sql,conn)
+    return df
 
 #df转换为csv
 def convert_df(df):
     return df.to_csv().encode('gbk')
 
-#指定用户在上周的下单金额
+
 with st.expander('客服-用户下单金额'):
     user=st.text_input(label='输入用户ID',placeholder='少量用户ID直接输入用空格隔开,多个用户ID从excel复制一列粘贴到此')
     str_user=user.replace(' ',',')  #把输入的ID用逗号隔开
@@ -25,7 +45,7 @@ with st.expander('客服-用户下单金额'):
         csv = convert_df(df_user_gmv)  #df转换为csv
         st.download_button(label="点此下载,用excel打开或另存为xlsx后进行操作", data=csv,file_name=str(date_end)+'用户.csv')
 
-#指定用户在上周的店铺ID和下单金额
+# 指定店铺在上周的用户ID和下单金额
 with st.expander('客服-用户下单店铺'):
     user=st.text_input(label='输入用户ID',placeholder='少量用户ID直接输入用空格隔开,多个用户ID从excel复制一列粘贴到此',key=1)
     str_user=user.replace(' ',',')  #把输入的ID用逗号隔开
