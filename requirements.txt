@@ -134,7 +134,6 @@ webencodings==0.5.1
 Werkzeug==2.0.2
 widgetsnbextension==3.5.1
 xlrd==2.0.1
-xlwings==0.24.9
 yarl==1.7.2
 zope.event==4.5.0
 zope.interface==5.4.0
